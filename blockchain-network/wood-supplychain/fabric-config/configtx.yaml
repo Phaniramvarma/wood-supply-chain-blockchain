@@ -1,0 +1,201 @@
+Capabilities:
+    Channel: &ChannelCapabilities
+        V2_0: true
+    Orderer: &OrdererCapabilities
+        V2_0: true
+    Application: &ApplicationCapabilities
+        V2_0: true
+Organizations:
+    - &OrdererOrg
+        Name: OrdererOrg
+        ID: OrdererMSP
+        MSPDir: ../crypto-config/ordererOrganizations/supplychain.com/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('OrdererMSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('OrdererMSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('OrdererMSP.admin')"
+
+        OrdererEndpoints:
+            - orderer0.supplychain.com:7050
+
+    - &forestOrg
+        Name: forestMSP
+        ID: forestMSP
+        MSPDir: ../crypto-config/peerOrganizations/forest.com/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('forestMSP.admin', 'forestMSP.peer', 'forestMSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('forestMSP.admin', 'forestMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('forestMSP.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('forestMSP.peer')"
+        AnchorPeers:
+            - Host: peer0.forest.com
+              Port: 7051
+
+    - &cutterOrg
+        Name: cutterMSP
+        ID: cutterMSP
+        MSPDir: ../crypto-config/peerOrganizations/cutter.com/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('cutterMSP.admin', 'cutterMSP.peer', 'cutterMSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('cutterMSP.admin', 'cutterMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('cutterMSP.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('cutterMSP.peer')"
+        AnchorPeers:
+            - Host: peer0.cutter.com
+              Port: 7051
+    - &logisticsOrg
+        Name: logisticsMSP
+        ID: logisticsMSP
+        MSPDir: ../crypto-config/peerOrganizations/logistics.com/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('logisticsMSP.admin', 'logisticsMSP.peer', 'logisticsMSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('logisticsMSP.admin', 'logisticsMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('logisticsMSP.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('logisticsMSP.peer')"
+        AnchorPeers:
+            - Host: peer0.logistics.com
+              Port: 7051
+
+
+    - &manufactureOrg
+        Name: manufactureMSP
+        ID: manufactureMSP
+        MSPDir: ../crypto-config/peerOrganizations/manufacture.com/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('manufactureMSP.admin', 'manufactureMSP.peer', 'manufactureMSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('manufactureMSP.admin', 'manufactureMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('manufactureMSP.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('manufactureMSP.peer')"
+        AnchorPeers:
+            - Host: peer0.manufacture.com
+              Port: 7051
+
+Application: &ApplicationDefaults
+    Organizations:
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
+        LifecycleEndorsement:
+            Type: ImplicitMeta
+            Rule: "ANY Endorsement"
+        Endorsement:
+            Type: ImplicitMeta
+            Rule: "ANY Endorsement"
+
+    Capabilities:
+        <<: *ApplicationCapabilities
+Orderer: &OrdererDefaults
+    OrdererType: etcdraft
+    EtcdRaft:
+        Consenters:
+        - Host: orderer0.supplychain.com
+          Port: 7050
+          ClientTLSCert: ../crypto-config/ordererOrganizations/supplychain.com/orderers/orderer0.supplychain.com/tls/server.crt
+          ServerTLSCert: ../crypto-config/ordererOrganizations/supplychain.com/orderers/orderer0.supplychain.com/tls/server.crt
+    BatchTimeout: 2s
+    BatchSize:
+        MaxMessageCount: 10
+        AbsoluteMaxBytes: 99 MB
+        PreferredMaxBytes: 512 KB
+    Organizations:
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
+        BlockValidation:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+
+Channel: &ChannelDefaults
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
+    Capabilities:
+        <<: *ChannelCapabilities
+
+Profiles:
+    MultiOrgsOrdererGenesis:
+        <<: *ChannelDefaults
+        Orderer:
+            <<: *OrdererDefaults
+            Organizations:
+                - *OrdererOrg
+            Capabilities:
+                <<: *OrdererCapabilities
+        Consortiums:
+            SupplyChainConsortium:
+                Organizations:
+                    - *forestOrg
+                    - *cutterOrg
+                    - *logisticsOrg
+                    - *manufactureOrg
+    SupplyChainOrgsChannel:
+        Consortium: SupplyChainConsortium
+        <<: *ChannelDefaults
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *forestOrg
+                - *cutterOrg
+                - *logisticsOrg
+                - *manufactureOrg
+            Capabilities:
+                <<: *ApplicationCapabilities

@@ -1,0 +1,355 @@
+{
+	"variables": [],
+	"info": {
+		"name": "WOOD-SUPPLY-CHAIN",
+		"_postman_id": "13f41d08-13af-b426-a47a-475997a4fe07",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "forest-api",
+			"description": "",
+			"item": [
+				{
+					"name": "forest-enrollAdmin",
+					"request": {
+						"url": "http://15.207.51.255:3000/api/enrollAdmin",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"orgName\":\"forest\",\r\n\"userName\":\"admin\",\r\n\"passWord\":\"adminpw\"\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "addTreeDetailsByForestOfficer",
+					"request": {
+						"url": "http://15.207.51.255:3000/api/addTreeDetailsByForestOfficer",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"orgName\":\"forest\",\r\n\"userName\":\"admin\",\r\n\"Tree\":{\r\n    \"tree_id\":\"9866895337\",\r\n    \"age\":\"25\",\r\n    \"quality\":\"A\",\r\n    \"tree_dimensions\":\"100*20*3\",\r\n    \"rfid_created_time\":\"1605296874\",\r\n    \"location\":\"Amazon -2  Forest\"\r\n}\r\n\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "updateTreeDetailsByForestOfficer",
+					"request": {
+						"url": "http://15.207.51.255:3000/api/updateTreeDetailsByForestOfficer",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"orgName\":\"forest\",\r\n\"userName\":\"admin\",\r\n\"TreeId\":\"9866895337\",\r\n\"TreeSts\":\"Ready\"\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getTreeDetailsById",
+					"request": {
+						"url": "http://15.207.51.255:3000/api/getTreeDetailsById",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"orgName\":\"forest\",\r\n\"userName\":\"admin\",\r\n\"TreeId\":\"9866895337\"\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cutter-api",
+			"description": "",
+			"item": [
+				{
+					"name": "cutter-enrollAdmin",
+					"request": {
+						"url": "http://15.207.51.255:3001/api/enrollAdmin",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"orgName\":\"cutter\",\r\n\"userName\":\"admin\",\r\n\"passWord\":\"adminpw\"\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "logUpdateByCutter",
+					"request": {
+						"url": "http://15.207.51.255:3001/api/logUpdateByCutter",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"orgName\":\"cutter\",\r\n\"userName\":\"admin\",\r\n\"CutterDetails\":{\r\n    \"tree_id\":\"9866895337\",\r\n    \"log_dimensions\":\"80*100*120\",\r\n    \"log_status\":\"NoCut\",\r\n    \"log_time\":\"1605422075\",\r\n    \"log_location\":\"Amazon -2 Forest\"\r\n}\r\n\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "logStatusUpdateByCutter",
+					"request": {
+						"url": "http://15.207.51.255:3001/api/logStatusUpdateByCutter",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"orgName\":\"cutter\",\r\n\"userName\":\"admin\",\r\n\"TreeId\":\"9866895337\",\r\n\"LogSts\":\"Cut\"\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getTreeDetailsById",
+					"request": {
+						"url": "http://15.207.51.255:3001/api/getTreeDetailsById",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"orgName\":\"cutter\",\r\n\"userName\":\"admin\",\r\n\"TreeId\":\"9866895337\"\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "logistics-api",
+			"description": "",
+			"item": [
+				{
+					"name": "logistics-enrollAdmin",
+					"request": {
+						"url": "http://15.207.51.255:3002/api/enrollAdmin",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"orgName\":\"logistics\",\r\n\"userName\":\"admin\",\r\n\"passWord\":\"adminpw\"\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "loadingUpdateByLogistics",
+					"request": {
+						"url": "http://15.207.51.255:3002/api/loadingUpdateByLogistics",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"orgName\":\"logistics\",\r\n\"userName\":\"admin\",\r\n\"LogisticsDetails\":{\r\n    \"tree_id\":\"9866895337\",\r\n    \"log_dimensions\":\"80*100*2\",\r\n    \"loading_status\":\"NotDelivered\",\r\n    \"loading_time\":\"1605422075\"\r\n}\r\n\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "loadingStatusUpdateByLogistics",
+					"request": {
+						"url": "http://15.207.51.255:3002/api/loadingStatusUpdateByLogistics",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"orgName\":\"logistics\",\r\n\"userName\":\"admin\",\r\n\"TreeId\":\"9866895337\",\r\n\"LoadingSts\":\"Delivered\"\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getTreeDetailsById",
+					"request": {
+						"url": "http://15.207.51.255:3002/api/getTreeDetailsById",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"orgName\":\"logistics\",\r\n\"userName\":\"admin\",\r\n\"TreeId\":\"9866895337\"\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "manufacture-api",
+			"description": "",
+			"item": [
+				{
+					"name": "manufacture-enrollAdmin",
+					"request": {
+						"url": "http://15.207.51.255:3003/api/enrollAdmin",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"orgName\":\"manufacture\",\r\n\"userName\":\"admin\",\r\n\"passWord\":\"adminpw\"\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "treeDetailsUpdateByManufacturer",
+					"request": {
+						"url": "http://15.207.51.255:3003/api/treeDetailsUpdateByManufacturer",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"orgName\":\"manufacture\",\r\n\"userName\":\"admin\",\r\n\"ManufactureDetails\":{\r\n    \"tree_id\":\"9866895337\",\r\n    \"product_dimensions\":\"80*100*2\",\r\n    \"status\":\"Manufactured\",\r\n    \"qr_code\":\"9866895337\"\r\n}\r\n\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getTreeDetailsById",
+					"request": {
+						"url": "http://15.207.51.255:3003/api/getTreeDetailsById",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"orgName\":\"manufacture\",\r\n\"userName\":\"admin\",\r\n\"TreeId\":\"9866895337\"\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "queryWoodTrack",
+			"request": {
+				"url": "http://15.207.51.255:3000/api/queryWoodTrack",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"orgName\":\"forest\",\r\n\"userName\":\"admin\",\r\n\"Query\":{\"selector\":{\r\n                \"log_updated_by_manufacturer.qr_code\":\"7702906226\"\r\n                    }\r\n        }\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

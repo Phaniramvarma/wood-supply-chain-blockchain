@@ -1,0 +1,20 @@
+
+peer lifecycle chaincode package supplychain_1.3.tar.gz --path github.com/chaincodes/wood-supplychain/ --label supplychain_1.3
+
+peer lifecycle chaincode install supplychain_1.3.tar.gz
+
+peer lifecycle chaincode queryinstalled
+
+peer lifecycle chaincode approveformyorg -o orderer0.supplychain.com:7050  --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/supplychain.com/orderers/orderer0.supplychain.com/msp/tlscacerts/tlsca.supplychain.com-cert.pem  --channelID supplychain --name supplychain --version 1.3 --package-id supplychain_1.3:d2469439cb91f638557ad99506b9f39ab6917db0dbbb6dac76cef38d35810e91 --sequence 4
+
+
+peer lifecycle chaincode checkcommitreadiness --channelID supplychain --name supplychain --version 1.3 --sequence 4
+
+ --init-required
+
+peer lifecycle chaincode commit -o orderer0.supplychain.com:7050  --tls --cafile  /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/supplychain.com/orderers/orderer0.supplychain.com/msp/tlscacerts/tlsca.supplychain.com-cert.pem  --channelID supplychain  --name supplychain  --version 1.3 --sequence 4
+
+ --init-required 
+ 
+  peer chaincode invoke -C supplychain -n  supplychain -o orderer0.supplychain.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/supplychain.com/msp/tlscacerts/tlsca.supplychain.com-cert.pem --isInit -c '{"Args":["Init"]}'
+
