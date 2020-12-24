@@ -4,7 +4,7 @@ if ! [ "$#" -ge 1 ] ; then
 fi
 # generate channel config transaction on config/channel.tx
 
-export FABRIC_CFG_PATH=/home/ubuntu/blockchain-network/wood-supplychain/fabric-config/
+export FABRIC_CFG_PATH=../../fabric-config/
 
 mkdir -p ../../channel-artifacts/channel-transactions/$1
 
